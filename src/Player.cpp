@@ -1,0 +1,202 @@
+#include "Player.h"
+#include "SDLGameObject.h"
+#include "LoaderParams.h"
+#include "InputHandler.h"
+#include "Bullet.h"
+#include "Game.h"
+#include "Log.h"
+#include "Enemy.h"
+#include "PlayState.h"
+#include "Physics.h"
+#include "AudioManager.h"
+#include "GameOverState.h"
+
+#include <string>
+#include <SDL2/SDL.h>
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+using namespace engine;
+
+Player::Player() : SDLGameObject(){
+	m_fireRate = 500;
+	TextureManager::Instance().load("assets/bullet.png", "bullet", Game::Instance().getRenderer());
+	TextureManager::Instance().load("assets/health.png", "health", Game::Instance().getRenderer());
+	TextureManager::Instance().load("assets/circle.png", "instance", Game::Instance().getRenderer());
+	
+	INFO("Player inicializado");
+	m_life = 100;
+
+}
+
+void Player::load(const LoaderParams* pParams){
+	SDLGameObject::load(pParams);
+}
+
+void Player::draw(){
+	SDLGameObject::draw();
+}
+
+void Player::update(){
+	if(m_life <= 0){
+		Game::Instance().getStateMachine()->changeState(new GameOverState());
+	}
+	m_currentFrame = int(((SDL_GetTicks() / 400) % m_numFrames));
+	if(Game::Instance().getStateMachine()->currentState()->getStateID() == "PLAY"){
+		PlayState *playState = dynamic_cast<PlayState*>(Game::Instance().getStateMachine()->currentState());
+		if(playState->getLevel() != NULL && m_boss == NULL){
+			INFO("Xuxa is set");
+			m_boss = playState->getLevel()->getXuxa();
+		}
+	}
+
+	handleInput();
+
+	if(m_velocity == Vector2D(0, 0)){
+		m_currentFrame = 0;
+	}
+}
+
+void Player::clean(){
+	SDLGameObject::clean();
+}
+
+void Player::handleInput(){
+	rotateTowards();
+	move();
+
+	useSkill();
+	if(InputHandler::Instance().getMouseButtonState(LEFT, m_fireRate)){
+
+		AudioManager::Instance().playChunk("assets/sounds/shot.wav");
+		INFO("FIRE RATE: " + m_fireRate);
+		Vector2D pivot = Vector2D(m_width/2+m_position.getX(), m_height/2 + m_position.getY());
+		Vector2D target = InputHandler::Instance().getMousePosition() - pivot;
+		target = target.norm();
+		Bullet *bullet =  bulletCreator.create(m_boss);
+		bullet->load(target, Vector2D(m_width/2+m_position.getX(), m_height/2 + m_position.getY()));
+		Game::Instance().getStateMachine()->currentState()->addGameObject(bullet);
+	}
+}
+void Player::rotateTowards(){
+	Vector2D pivot = Vector2D(m_width/2+m_position.getX(), m_height/2 + m_position.getY());
+
+	Vector2D target = InputHandler::Instance().getMousePosition() - pivot;
+	target = target.norm();
+
+	m_angle = Vector2D::angle(target, Vector2D(0, 1));
+}
+
+void Player::move(){
+	Vector2D movement(0, 0);
+
+	if(InputHandler::Instance().isKeyDown("w")){
+		movement += Vector2D(0, -1);
+		m_velocity = new Vector2D(0, -1);
+
+	}
+
+	if(InputHandler::Instance().isKeyDown("s")){
+		movement += Vector2D(0, +1);
+	}
+
+	if(InputHandler::Instance().isKeyDown("d")){
+		movement += Vector2D(1, 0);
+	}
+
+
+	if(InputHandler::Instance().isKeyDown("a")){
+		movement += Vector2D(-1, 0);
+	}
+	movement = movement.norm();
+	if(!m_isDashing){
+		m_velocity = movement * 2;
+	}
+
+	dash();
+
+	m_position.setY(m_position.getY() + m_velocity.getY());
+	for(auto enemy : Game::Instance().getEnemies()){
+
+		if(Physics::Instance().checkCollision(this, enemy)){
+			double leftB = getPosition().getX() + (getWidth() - getCollider().getWidth())/2;
+			double topB = getPosition().getY() + (getHeight() - getCollider().getHeight())/2;
+
+			double leftA = enemy->getPosition().getX() + (enemy->getWidth() - enemy->getCollider().getWidth())/2;
+			double topA = enemy->getPosition().getY() + (enemy->getHeight() - enemy->getCollider().getHeight())/2;
+
+			Vector2D pos1 = Vector2D(leftB, topB);
+			Vector2D pos2 = Vector2D(leftA, topA);
+
+			Vector2D vec = (m_position - enemy->getPosition());
+			vec = vec.norm();
+
+	
+			m_velocity = vec;
+		}
+	}
+}
+
+void Player::useSkill(){
+
+	if(InputHandler::Instance().isKeyDown("1", 200)){
+		m_skillManager.setSkillPair(&m_pSkills, RED, &isFirstSkill);
+	}
+
+	if(InputHandler::Instance().isKeyDown("2", 200)){
+		m_skillManager.setSkillPair(&m_pSkills, GREEN, &isFirstSkill);
+	}
+
+	if(InputHandler::Instance().isKeyDown("3", 200)){
+		m_skillManager.setSkillPair(&m_pSkills, BLUE, &isFirstSkill);
+	}
+
+
+	if(InputHandler::Instance().isKeyDown("x", 100)){
+		std::map<std::pair<default_inks, default_inks>, bool>::iterator it = m_skillManager.getCoolDownMap()->find(m_pSkills);
+		if(it != m_skillManager.getCoolDownMap()->end()){
+			if(it->second == false){
+				m_skillManager.setCoolDownTrigger(m_pSkills);
+				if(m_pSkills.first != BLANK and m_pSkills.second != BLANK){
+					pixelColors = m_skillManager.getSkill(m_pSkills)();
+					TheTextureManager::Instance().changeColorPixels(pixelColors, "bullet");
+					TheTextureManager::Instance().changeColorPixels(pixelColors, "instance");
+				}
+			}
+			else
+				INFO("TA EM CD");
+			
+			m_pSkills.first = BLANK;
+			m_pSkills.second = BLANK;
+			isFirstSkill = true;
+		}
+	}
+}
+
+void Player::dash(){
+
+	if(InputHandler::Instance().isKeyDown("space", 1000)){
+		m_dashTime = Timer::Instance().step();
+		m_velocity = (m_velocity.norm() * 5);
+		m_isDashing = true;
+	}
+
+	if(m_isDashing && Timer::Instance().step() >= m_dashTime + 100){
+		m_isDashing = false;
+	}
+	
+}
+
+// void Player::setLife(int life, Uint32 time){
+// 	if( m_time == 0){
+// 			m_time = Timer::Instance().step() + time;
+// 			m_life = life;
+// 		}
+// 		else if(Timer::Instance().step() <= m_time){
+// 			// do nothing
+// 		}
+// 		else{
+// 			m_time = 0;
+// 		}
+// }

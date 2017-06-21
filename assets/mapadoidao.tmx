@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="86" height="48" tilewidth="32" tileheight="32" nextobjectid="25">
+ <properties>
+  <property name="RAG" value="assets/enemy.png"/>
+  <property name="collider" value="assets/collider.png"/>
+  <property name="helicopter" value="assets/player-topdown.png"/>
+ </properties>
+ <tileset firstgid="1" name="BqX1wYx" tilewidth="32" tileheight="32">
+  <image source="BqX1wYx.png" width="1616" height="1120"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="86" height="48">
+  <data encoding="base64" compression="zlib">
+   eJzt1zEKwkAARcGAehJbz+XlvYSFlXGRRH0g7Az8LqR4xWazLO/dDq87n7bvenze+l2z0rWha0PXxrddL6vp+qBrQ9eGrg3frYaujVHXX25WujZ0bXxyvu55dla6NnRt6NrQtaFrQ9fGnn/WUVf31zFdG7oCAAAAAAAAAPBP7rNAHzI=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="86" height="48">
+  <data encoding="base64" compression="zlib">
+   eJzt2cEOQ1AQQNGXiC/p9+KXm650Mc/Uq9lwTiKRwcKNoNXasWVqbStcnmoJzj2aRdZkv2z7nelaQ9caV3f9PlbXfBY9k3Tt+/XajOjap2sNXWucfW695n1d175/3gc+jn5f6ZrPRuiaz0boms96/O8Sc73W0LXGVQ0jutbQNZ+N0DWfjdB1d/ablfesmPtrDV1rVH7jfvJ9AAAAAAAAAAC4vzfqulb4
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="86" height="48">
+  <data encoding="base64" compression="zlib">
+   eJzt2EEOABAMBECJ9+PLHqDhRIKZ47b3NpvSXMtjVoIsUhd7qzkAnBTdPAAAuJXeBQD42c6uz58FAAAAAAAAAAC8rANQUQSL
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" name="Xuxa" type="XuxaBoss" x="500" y="52">
+   <properties>
+    <property name="colliderHeight" value="116"/>
+    <property name="colliderWidth" value="120"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="116"/>
+    <property name="textureID" value="RAG"/>
+    <property name="textureWidth" value="120"/>
+   </properties>
+  </object>
+  <object id="2" name="Player" type="Player" x="300" y="100">
+   <properties>
+    <property name="colliderHeight" value="50"/>
+    <property name="colliderWidth" value="50"/>
+    <property name="numFrames" value="7"/>
+    <property name="textureHeight" value="150"/>
+    <property name="textureID" value="helicopter"/>
+    <property name="textureWidth" value="150"/>
+   </properties>
+  </object>
+  <object id="8" name="Xuxa" type="XuxaBoss" x="728" y="368">
+   <properties>
+    <property name="colliderHeight" value="116"/>
+    <property name="colliderWidth" value="120"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="116"/>
+    <property name="textureID" value="RAG"/>
+    <property name="textureWidth" value="120"/>
+   </properties>
+  </object>
+  <object id="9" name="Xuxa" type="XuxaBoss" x="330" y="364">
+   <properties>
+    <property name="colliderHeight" value="116"/>
+    <property name="colliderWidth" value="120"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="116"/>
+    <property name="textureID" value="RAG"/>
+    <property name="textureWidth" value="120"/>
+   </properties>
+  </object>
+  <object id="10" name="Xuxa" type="XuxaBoss" x="256" y="6" width="12" height="734">
+   <properties>
+    <property name="colliderHeight" value="734"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="734"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="11" name="Xuxa" type="XuxaBoss" x="276" y="735" width="734" height="12">
+   <properties>
+    <property name="colliderHeight" value="12"/>
+    <property name="colliderWidth" value="734"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="12"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="734"/>
+   </properties>
+  </object>
+  <object id="12" name="Xuxa" type="XuxaBoss" x="1012" y="5" width="12" height="734">
+   <properties>
+    <property name="colliderHeight" value="734"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="734"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="13" name="Xuxa" type="XuxaBoss" x="277" y="0" width="734" height="12">
+   <properties>
+    <property name="colliderHeight" value="12"/>
+    <property name="colliderWidth" value="734"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="12"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="734"/>
+   </properties>
+  </object>
+  <object id="14" name="Xuxa" type="XuxaBoss" x="416" y="-3" width="12" height="192.333">
+   <properties>
+    <property name="colliderHeight" value="193"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="193"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="15" name="Xuxa" type="XuxaBoss" x="414" y="574" width="12" height="73">
+   <properties>
+    <property name="colliderHeight" value="73"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="73"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="16" name="Xuxa" type="XuxaBoss" x="752" y="16" width="12" height="300.5">
+   <properties>
+    <property name="colliderHeight" value="300"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="300"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="17" name="Xuxa" type="XuxaBoss" x="894" y="128" width="12" height="188.5">
+   <properties>
+    <property name="colliderHeight" value="189"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="189"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="18" name="Xuxa" type="XuxaBoss" x="383" y="640" width="289" height="12">
+   <properties>
+    <property name="colliderHeight" value="289"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="289"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="19" name="Xuxa" type="XuxaBoss" x="767.5" y="638" width="260.5" height="12">
+   <properties>
+    <property name="colliderHeight" value="734"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="734"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="20" name="Xuxa" type="XuxaBoss" x="767.75" y="414" width="260.5" height="12">
+   <properties>
+    <property name="colliderHeight" value="12"/>
+    <property name="colliderWidth" value="260"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="12"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="260"/>
+   </properties>
+  </object>
+  <object id="21" name="Xuxa" type="XuxaBoss" x="767.75" y="318" width="130.25" height="12">
+   <properties>
+    <property name="colliderHeight" value="12"/>
+    <property name="colliderWidth" value="130"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="12"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="130"/>
+   </properties>
+  </object>
+  <object id="22" name="Xuxa" type="XuxaBoss" x="574.875" y="158" width="187.125" height="12">
+   <properties>
+    <property name="colliderHeight" value="12"/>
+    <property name="colliderWidth" value="188"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="12"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="188"/>
+   </properties>
+  </object>
+  <object id="23" name="Xuxa" type="XuxaBoss" x="260.875" y="644" width="27.125" height="12">
+   <properties>
+    <property name="colliderHeight" value="28"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="28"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+  <object id="24" name="Xuxa" type="XuxaBoss" x="415.333" y="290.667" width="12" height="218.667">
+   <properties>
+    <property name="colliderHeight" value="219"/>
+    <property name="colliderWidth" value="12"/>
+    <property name="numFrames" value="1"/>
+    <property name="textureHeight" value="219"/>
+    <property name="textureID" value="collider"/>
+    <property name="textureWidth" value="12"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
